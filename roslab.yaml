@@ -1,0 +1,29 @@
+name: superquadric-grasp
+
+base:
+  ubuntu: 16.04
+  cuda: 8.0-devel
+  opengl: runtime
+  icub: binary
+
+apt:
+  - wget
+
+source:
+  - name: icub-contrib-common
+    repo: https://github.com/robotology/icub-contrib-common.git
+    build: cmake
+    cmake_options: -DYARP_DIR=/usr/lib/x86_64-linux-gnu/cmake/YARP -DCMAKE_INSTALL_PREFIX:PATH=/usr
+
+  - name: opencv
+    zip: https://github.com/opencv/opencv/archive/3.3.0.zip
+    build: cmake
+
+  - name: tactile-control-lib
+    repo: https://github.com/robotology/tactile-control/tree/master/tactile-control-lib.git
+    build: cmake
+    depends:
+      - coinor-libipopt-dev
+
+build: cmake
+
